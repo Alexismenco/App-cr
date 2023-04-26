@@ -1,0 +1,163 @@
+<%- include ("./partials/cabecera") %> 
+<%- user==true?include("./partials/navbar"):include("./partials/navbarUser")%> 
+
+<style>
+  .calculadora-titulo{
+    font-weight: 800;
+    font-size: 35px;
+  }
+  @media (max-width: 600px) {
+    .calculadora-titulo {
+      font-size: 25px;
+  }
+}
+
+  .calculadora-titulo2{
+    font-weight: 800;
+    font-size: 20px;
+  }
+  @media (max-width: 600px) {
+    .calculadora-titulo2 {
+      font-size: 15px;
+  }
+}
+
+.color{
+  color: rgb(45, 45, 62);
+}
+.bg-color{
+  background-color: rgb(45, 45, 62);
+}
+
+label {
+  display: block; /* para que ocupe toda la anchura del contenedor */
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+select {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.btn-calcular{
+  font-size: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.btn-resetear{
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-left: -20px;
+}
+
+
+
+</style>
+
+
+
+
+  
+  <div class="text-center text-dark mt-4 mb-5 contenedor-calculadora">
+    <h3 class="calculadora-titulo">CALCULADORA</h3>
+    <h2 class="calculadora-titulo2">DE TAMAÑOS DE POSICIONES</h2>
+
+  </div>
+
+  <div id="position-size-calculator-891920" class="m-auto">
+    <script type="text/javascript" src="https://www.cashbackforex.com/Content/remote/remote-widgets.js"></script>
+    <script type="text/javascript"> RemoteCalc({"Url":"https://www.cashbackforex.com", "TopPaneStyle":"YmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KCNmZmYgMjAlLCAjZjVmNWY1IDQ1JSk7IGNvbG9yOiBibGFjazsgYm9yZGVyOiBzb2xpZCAxcHggI2FhYTsgYm9yZGVyLWJvdHRvbTogbm9uZTsg","BottomPaneStyle":"YmFja2dyb3VuZDogI2YzZjNmMzsgYm9yZGVyOiBzb2xpZCAxcHggI2FhYTsgY29sb3I6IGJsYWNrOw==","ButtonStyle":"YmFja2dyb3VuZDogIzM0MzU0MDsgY29sb3I6IHdoaXRlOyBib3JkZXItcmFkaXVzOiAyMHB4Ow==","TitleStyle":"dGV4dC1hbGlnbjogbGVmdDsgZm9udC1zaXplOiA0MHB4OyBmb250LXdlaWdodDogNTAwOw==","TextboxStyle":"YmFja2dyb3VuZC1jb2xvcjogd2hpdGU7IGNvbG9yOiBibGFjazsgYm9yZGVyOiBzb2xpZCAxcHggI2FhYWFhYQ==","ContainerWidth":"665","DefaultInstrument":"EUR-USD","HighlightColor":"#ffff00","IsDisplayTitle":false,"IsShowChartLinks":true,"IsShowEmbedButton":false,"CompactType":"large","Calculator":"position-size-calculator","ContainerId":"position-size-calculator-891920"});</script>
+  </div>
+
+  <!--  
+  <div class="text-center text-dark mt-4 mb-2" style="overflow: auto;">
+    <div style="float: left; width: 50%;">
+      <label for="select">Par de divisas</label>
+      <select style="width: 80%;" name="select" id="select" class="bg-color text-white">
+        <option value="value1">EURTRY</option>
+        <option value="value2" selected>EURUSD</option>
+        <option value="value3">EURZAR</option>
+        <option value="value3">GBPAUD</option>
+        <option value="value3">GBPCAD</option>
+        <option value="value3">GBPCHF</option>
+        <option value="value3">GBPJPY</option>
+        <option value="value3">GBPMXN</option>
+        <option value="value3">GBPNOK</option>
+        <option value="value3">GBPNZD</option>
+      </select>
+    </div>
+  
+    <div style="float: right; width: 50%;">
+      <label for="select2">Divisas de cuentas</label>
+      <select style="width: 80%;" name="select2" id="select2" class="bg-color text-white">
+        <option value="value1">AUD</option>
+        <option value="value2">CHG</option>
+        <option value="value3">EUR</option>
+        <option value="value3">GBP</option>
+        <option value="value3">JPY</option>
+        <option value="value3" selected>USD</option>
+      </select>
+    </div>
+  
+    <div style="clear: both;"></div>
+  </div>
+
+
+  
+  <div class="text-center text-dark mt-2 mb-2" style="overflow: auto;">
+
+    <div style="float: left; width: 50%;">
+      <label for="input1">Tamaño de cuenta</label>
+      <input style="width: 80%;" class="btn bg-color text-white btn-dark" type="number" id="input1" />
+    </div>
+  
+    <div style="float: right; width: 50%;">
+      <label for="input2">Riesgo %</label>
+      <input style="width: 80%;" class="btn bg-color text-white btn-dark"  type="number" id="input2" />
+    </div>
+  
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="text-center text-dark mt-2 mb-4" style="overflow: auto;">
+
+    <div style="float: left; width: 50%;">
+      <label for="input3">Pips de Stop Loss</label>
+      <input style="width: 80%;" class="btn bg-color text-white btn-dark" type="number" id="input3" />
+    </div>
+  
+    <div style="float: right; width: 50%;">
+      <label for="input4">Entradas</label>
+      <input style="width: 80%;" class="btn bg-color text-white btn-dark"  type="number" id="input4" />
+    </div>
+  
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="text-center mt-4">
+    <input class="btn btn-dark bg-color text-white btn-calcular" type="button" value="Calcular" />
+    <br>
+    <input class="btn btn-dark bg-color text-white btn-resetear mt-2" type="button" value="Resetear" />
+  </div>
+
+  <h3 class="text-center color mt-4" style="font-size: 40px; font-weight: 800;">Resultado</h3>
+  <div class="text-center">
+    <label class="color" for="inputr">Riesgo %</label>
+    <input  class="btn bg-color text-white btn-dark"  type="text" id="inputr" />
+  </div>
+  <div class="text-center mt-2">
+    <label class="color" for="inputl">Lotaje</label>
+    <input  class="btn bg-color text-white btn-dark"  type="text" id="inputl" />
+  </div>
+  -->
+  <div class="text-center mt-5">
+  </div>
+
+<%- include ("./partials/navbarbottom") %>
+<%- include ("./partials/pie") %> 
+
