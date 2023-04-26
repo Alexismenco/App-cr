@@ -6,7 +6,6 @@ const jwt = require('./utils/jwt');
 const { prevenirLogin, permisosAdmin } = require('./middleware/autenticacion');
 const nodemailer=require('nodemailer');
 
-
 const upload = require('express-fileupload');
 
 // configuracion nodmeailer
