@@ -485,6 +485,7 @@ app.post("/login", async function (req,res){
       nombre:respuestaUsuario.rows[0].Nombre
     }
     const token = await jwt.generarToken(usuario);
+    
     res.cookie(process.env.JWT_COOKIE,token,{httpOnly:true});
     res.redirect('/');
   }else{
