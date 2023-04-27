@@ -180,7 +180,9 @@ app.post('/nick', async (req,res) => {
       console.log("Error agregar nick: "+err.message);
   }
 
-  res.redirect('comunidad');
+  setTimeout(function() {
+    res.redirect('comunidad');
+  }, 700);
 })
 
 //------------------------------------------------------------------------------------------
