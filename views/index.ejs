@@ -91,8 +91,6 @@
 <script>
     window.onload = function() {
         if(document.referrer=='http://localhost:3000/login'){
-            document.getElementById("barra").style.visibility = "visible";
-            document.getElementById("progreso").className = "progreso";
 
               // Oculta la pantalla de presentación después de 1 segundo
             setTimeout(function() {
@@ -108,8 +106,6 @@
             document.getElementById("contenedor-inicio").style.visibility = "visible";
             document.getElementById("navbarbotton").style.visibility = "visible";
             document.getElementById("navbar2").style.visibility = "visible";
-
-
         }
     
     };
@@ -117,7 +113,7 @@
 
 <div id="barra">
 
-    <div id="progreso"></div>
+    <div class="progreso" id="progreso"></div>
     <br>
     <h4 class="loading">Loading...</h4>
 
