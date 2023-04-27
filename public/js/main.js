@@ -12,14 +12,11 @@ $(function () {
     const $nickError = $('#nickError');
 
     const $users = $('#usernames');
-    const $nickExiste = $('#nickExiste');
     var $nombre;
 
-    if($nickExiste.val()==''){
-        $('#nickWrap').show();
-
+    $('#nickWrap').show();
         $nickForm.submit(e => {
-            /*e.preventDefault()*/
+            e.preventDefault()
             socket.emit('nuevo usuario', $nickname.val(), data => {
                 if(data && $nickname.val()!==''){
                     $('#nickWrap').hide();
@@ -35,16 +32,6 @@ $(function () {
                 $nickname.val('');
             });
         });
-    }else{
-
-        socket.emit('nuevo usuario', $nickExiste.val(), data => {
-            if($nickExiste.val()!==''){
-                $('#nickWrap').hide();
-                $('#contentWrap').show();
-                $nombre = $nickname.val();
-            }
-        });
-    }
     
 
     // events
