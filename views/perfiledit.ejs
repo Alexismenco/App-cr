@@ -1,0 +1,123 @@
+<%- include ("./partials/cabecera") %> 
+<%- user==true?include("./partials/navbar"):include("./partials/navbarUser")%> 
+
+<style>
+  .btn-cursos{
+      font-size: 25px;
+      color: white;
+      background-color: rgb(45, 45, 62);
+      padding-left: 30px;
+      padding-right: 30px;
+  }
+  .btn-cursos2{
+    font-size: 15px;
+    color: white;
+    background-color: rgb(45, 45, 62);
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 40%;
+}
+  
+  .contenedor-cursos{
+    margin: 25px;
+  }
+
+  @media (max-width: 600px) {
+  .btn-cursos2 {
+    width: 80%;
+  }
+}
+
+.btn-cursos2 a {
+  float: left;
+}
+
+.btn-cursos2 .porcentaje {
+  float: right;
+}
+img{
+  display: block;
+  margin: auto;
+  margin-top: 5px;
+  border-radius: 50%;
+}
+
+.bg-color{
+    background-color: rgb(45, 45, 62);
+}
+  </style>
+  
+  <div class="contenedor-cursos text-center mt-4 mb-4">
+    <h2 class="text-dark ">Editar perfil</h2>
+    <br>
+  </div>
+
+  
+  <form class="text-center" action="/perfil/edit" method="post" enctype="multipart/form-data">
+    <h3 class="text-dark">Cambiar foto</h3>
+    <a href="/perfil">
+      <img class="" style="width: 150px; margin-top: 8px;" src="<%- fotoPerfil %>" />
+    </a>
+    <div class="form-group row w-50 m-auto mt-2">
+      <label for="foto" class="text-dark">Sube tu nueva imagen</label>
+        <input type="file" class=" m-auto text-dark form-control" id="foto" name="foto">
+    </div>
+    <div class="form-group row m-auto w-25 mt-3">
+        <button type="submit" class="btn btn-info">Guardar foto</button>
+    </div>
+  </form>
+
+
+  <form class="text-center mt-5" action="/perfil/edit" method="post">
+    <h3 class="text-dark">Cambiar Nombre</h3>
+    <div class="form-group row w-50 m-auto">
+        <span class="text-dark">Nombre actual: <%- nombre %></span>
+      <label for="nombre" class="text-dark">Ingresa su nuevo nombre</label>
+        <input type="text" class=" m-auto text-dark form-control" id="nombre" placeholder="Nombre"  name="nombre" required>
+    </div>
+    <div class="form-group row m-auto w-25 mt-3">
+        <button type="submit" class="btn btn-info">Guardar nombre</button>
+    </div>
+  </form>
+
+  <form class="text-center mt-5" action="/perfil/edit" method="post">
+    <h3 class="text-dark">Cambiar email</h3>
+    <div class="form-group row w-50 m-auto">
+        <span class="text-dark">Correo actual: <%- email %></span>
+      <label for="email" class="text-dark">Ingresa tu nuevo correo</label>
+        <input type="email" class=" m-auto text-dark form-control" id="email" placeholder="Email"  name="email" required>
+    </div>
+    <div class="form-group row m-auto w-25 mt-3">
+        <button type="submit" class="btn btn-info">Guardar correo</button>
+    </div>
+  </form>
+
+  <form class="text-center mt-5" action="/perfil/edit" method="post">
+    <h3 class="text-dark">Cambiar contraseña</h3>
+    <div class="form-group row w-50 m-auto">
+        <span class="text-dark">Contraseña actual</span>
+        <input type="password" class=" m-auto text-dark form-control" id="pasworda" placeholder="********"  name="passworda" required>
+
+      <label for="passwordn" class="text-dark">Ingresa tu nueva contraseña</label>
+        <input type="password" class=" m-auto text-dark form-control" id="paswordn" placeholder="********"  name="passwordn" required>
+
+        <label for="passwordn" class="text-dark">Repite tu nueva contraseña</label>
+        <input type="password" class=" m-auto text-dark form-control" id="paswordn" placeholder="********"  name="passwordn2">
+    </div>
+    <div class="form-group row m-auto w-25 mt-3 mb-3">
+        <button type="submit" class="btn btn-info">Cambiar contraseña</button>
+    </div>
+  </form>
+
+ 
+ 
+  <div>
+    <div class="">
+        
+        
+    </div>
+</div>
+<div class="text-center mt-5">
+</div>
+<%- include ("./partials/navbarbottom") %>
+<%- include ("./partials/pie") %> 

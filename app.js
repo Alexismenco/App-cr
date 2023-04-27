@@ -33,7 +33,6 @@ app.get('/', async (req,res) => {
   try{
     var token = await jwt.verificarToken(cookie);
     var email = await jwt.obtenerEmail(cookie);
-    nombre = token.nombre
     if(token==null){
     user = false;
     res.cookie(process.env.JWT_COOKIE,"",{httpOnly:true,maxAge:1});
@@ -48,7 +47,30 @@ app.get('/', async (req,res) => {
     res.cookie(process.env.JWT_COOKIE,"",{httpOnly:true,maxAge:1});
     res.redirect('login')
   }
-    res.render('index',{user, nombre})
+
+  // Buscar nombre
+  var buscarNombre='SELECT "Nombre" FROM "Usuarios" WHERE "Email"=$1'
+    var parametros=[email]
+    var respuestaNombre;
+    try{
+      respuestaNombre = await conexion.query(buscarNombre,parametros);
+      nombre = respuestaNombre.rows[0].Nombre
+    } catch(err){
+        console.log("Error cambiar nombre: "+err.message);
+    }
+    // Consulta foto perfil
+    var consultaFoto='SELECT "Foto_perfil" FROM "Usuarios" WHERE "Email"=$1'
+    const parametros2=[email];
+    var respuestaFotoPerfil;
+    try{
+      respuestaFotoPerfil = await conexion.query(consultaFoto,parametros2);
+    } catch(err){
+        console.log("Error consulta: "+err.message);
+    }
+    var fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil || 'perfil.png';
+
+
+    res.render('index',{user, nombre, fotoPerfil})
 })
 
 // Perfil
@@ -60,7 +82,6 @@ app.get('/perfil', async (req,res) => {
   try{
     var token = await jwt.verificarToken(cookie);
     var email = await jwt.obtenerEmail(cookie);
-    nombre = token.nombre
     if(token==null){
     user = false;
     res.cookie(process.env.JWT_COOKIE,"",{httpOnly:true,maxAge:1});
@@ -76,8 +97,171 @@ app.get('/perfil', async (req,res) => {
     res.redirect('/login')
   }
 
-  res.render('perfil',{user, nombre})
+  // Buscar nombre
+  var buscarNombre='SELECT "Nombre" FROM "Usuarios" WHERE "Email"=$1'
+    var parametros=[email]
+    var respuestaNombre;
+    try{
+      respuestaNombre = await conexion.query(buscarNombre,parametros);
+      nombre = respuestaNombre.rows[0].Nombre
+    } catch(err){
+        console.log("Error cambiar nombre: "+err.message);
+    }
+    // Consulta foto perfil
+    var consultaFoto='SELECT "Foto_perfil" FROM "Usuarios" WHERE "Email"=$1'
+    const parametros2=[email];
+    var respuestaFotoPerfil;
+    try{
+      respuestaFotoPerfil = await conexion.query(consultaFoto,parametros2);
+    } catch(err){
+        console.log("Error consulta: "+err.message);
+    }
+    var fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil || 'perfil.png';
+
+  res.render('perfil',{user, nombre, fotoPerfil})
 })
+
+// Editar perfil
+app.get('/perfil/edit', async (req,res) => {
+  var user;
+  var cookie = req.headers.cookie || 'none';
+  var nombre;
+
+  try{
+    var token = await jwt.verificarToken(cookie);
+    var email = await jwt.obtenerEmail(cookie);
+    if(token==null){
+    user = false;
+    res.cookie(process.env.JWT_COOKIE,"",{httpOnly:true,maxAge:1});
+    res.redirect('/login')
+    }else{
+      user=true
+    }
+  }catch (error){
+    token=null;
+    console.log('Error cookie invalida');
+    user = false;
+    res.cookie(process.env.JWT_COOKIE,"",{httpOnly:true,maxAge:1});
+    res.redirect('/login')
+  }
+
+  // Buscar nombre
+  var buscarNombre='SELECT "Nombre" FROM "Usuarios" WHERE "Email"=$1'
+    var parametros=[email]
+    var respuestaNombre;
+    try{
+      respuestaNombre = await conexion.query(buscarNombre,parametros);
+      nombre = respuestaNombre.rows[0].Nombre
+    } catch(err){
+        console.log("Error cambiar nombre: "+err.message);
+    }
+
+     // Consulta foto perfil
+    var consultaFoto='SELECT "Foto_perfil" FROM "Usuarios" WHERE "Email"=$1'
+    const parametros2=[email];
+    var respuestaFotoPerfil;
+    try{
+      respuestaFotoPerfil = await conexion.query(consultaFoto,parametros2);
+    } catch(err){
+        console.log("Error consulta: "+err.message);
+    }
+    var fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil || 'perfil.png';
+
+  res.render('perfiledit',{user, nombre, email, fotoPerfil})
+})
+
+// Editar perfil
+app.post('/perfil/edit', async (req,res) => {
+  var cookie = req.headers.cookie || 'none';
+
+  try{
+    var token = await jwt.verificarToken(cookie);
+    var email = await jwt.obtenerEmail(cookie);
+    if(token==null){
+    res.cookie(process.env.JWT_COOKIE,"",{httpOnly:true,maxAge:1});
+    res.redirect('/login')
+    }
+  }catch (error){
+    token=null;
+    console.log('Error editar perfil');
+    res.cookie(process.env.JWT_COOKIE,"",{httpOnly:true,maxAge:1});
+    res.redirect('/login')
+  }
+
+  if(req.body.nombre){
+    // Cambiar nombre
+    var actualizaNombre='UPDATE "Usuarios" SET "Nombre"=$1 WHERE "Email"=$2'
+    var parametros=[req.body.nombre, email]
+    var respuestaNombre;
+    try{
+      respuestaNombre = await conexion.query(actualizaNombre,parametros);
+    } catch(err){
+        console.log("Error cambiar nombre: "+err.message);
+    }
+  }else if(req.body.email){
+    // Cambiar email
+    var actualizaEmail='UPDATE "Usuarios" SET "Email"=$1 WHERE "Email"=$2'
+    var parametros2=[req.body.email, email]
+    var respuestaEmail;
+    try{
+      respuestaEmail = await conexion.query(actualizaEmail,parametros2);
+      // Destruye la cookie
+      res.cookie(process.env.JWT_COOKIE,"",{httpOnly:true,maxAge:1});
+    } catch(err){
+        console.log("Error cambiar email: "+err.message);
+    }
+
+    // Buscar datos usuario
+  var consultaUsuario='SELECT "Nombre" ,"Email" from "Usuarios" WHERE "Email"=$1'
+  const parametros3=[req.body.email];
+  var respuestaUsuario;
+
+  try{
+    respuestaUsuario = await conexion.query(consultaUsuario,parametros3);
+     // Si existe genera la cookie
+    if(respuestaUsuario.rows[0]!==undefined){
+      const usuario = {
+        email:respuestaUsuario.rows[0].Email,
+        nombre:respuestaUsuario.rows[0].Nombre
+      }
+      const token = await jwt.generarToken(usuario);
+      res.cookie(process.env.JWT_COOKIE,token,{httpOnly:true});
+    }
+  } catch(err){
+      console.log("Error generar cookie: "+err.message);
+  }
+
+  }else if(req.files.foto){
+    // Agregar foto de perfil
+   var perfil=req.files.foto;
+
+   var insertarFoto='UPDATE "Usuarios" SET "Foto_perfil"=$1 WHERE "Email"=$2;'
+   const parametros14=[perfil.name,email];
+   var respuestaFoto;
+   try{
+      respuestaFoto = await conexion.query(insertarFoto,parametros14);
+      perfil.mv(`./public/perfil/${perfil.name}`,err => {
+        if(err) return res.status(500).send({ message : err })     
+    })
+   } catch(err){
+       console.log("Error añadir foto perfil: "+err.message);
+   }
+
+  }else if(req.body.passworda){
+    // Cambiar contraseña
+    var actualizaPassword='UPDATE "Usuarios" SET "Password"=$1 WHERE "Email"=$2 AND "Password"=$3'
+    var parametros4=[req.body.passwordn, email, req.body.passworda]
+    var respuestaPassword;
+    try{
+      respuestaPassword = await conexion.query(actualizaPassword,parametros4);
+    } catch(err){
+        console.log("Error cambiar email: "+err.message);
+    }
+  }
+
+  res.redirect('/perfil/edit')
+})
+
 
 // Calculadora
 app.get('/calculadora', async (req,res) => {
@@ -88,8 +272,6 @@ app.get('/calculadora', async (req,res) => {
   try{
     var token = await jwt.verificarToken(cookie);
     var email = await jwt.obtenerEmail(cookie);
-    nombre = token.nombre
-
     if(token==null){
     user = false;
     res.cookie(process.env.JWT_COOKIE,"",{httpOnly:true,maxAge:1});
@@ -105,7 +287,28 @@ app.get('/calculadora', async (req,res) => {
     res.redirect('login')
   }
 
-  res.render('calculadora',{user, nombre})
+  // Buscar nombre
+  var buscarNombre='SELECT "Nombre" FROM "Usuarios" WHERE "Email"=$1'
+    var parametros=[email]
+    var respuestaNombre;
+    try{
+      respuestaNombre = await conexion.query(buscarNombre,parametros);
+      nombre = respuestaNombre.rows[0].Nombre
+    } catch(err){
+        console.log("Error cambiar nombre: "+err.message);
+    }
+    // Consulta foto perfil
+    var consultaFoto='SELECT "Foto_perfil" FROM "Usuarios" WHERE "Email"=$1'
+    const parametros2=[email];
+    var respuestaFotoPerfil;
+    try{
+      respuestaFotoPerfil = await conexion.query(consultaFoto,parametros2);
+    } catch(err){
+        console.log("Error consulta: "+err.message);
+    }
+    var fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil || 'perfil.png';
+
+  res.render('calculadora',{user, nombre, fotoPerfil})
 })
 
 // Comunidad
@@ -117,7 +320,6 @@ app.get('/comunidad', async (req,res) => {
   try{
     var token = await jwt.verificarToken(cookie);
     var email = await jwt.obtenerEmail(cookie);
-    nombre = token.nombre
     if(token==null){
     user = false;
     res.cookie(process.env.JWT_COOKIE,"",{httpOnly:true,maxAge:1});
@@ -132,6 +334,28 @@ app.get('/comunidad', async (req,res) => {
     res.cookie(process.env.JWT_COOKIE,"",{httpOnly:true,maxAge:1});
     res.redirect('login')
   }
+
+  // Buscar nombre
+  var buscarNombre='SELECT "Nombre" FROM "Usuarios" WHERE "Email"=$1'
+    var parametros=[email]
+    var respuestaNombre;
+    try{
+      respuestaNombre = await conexion.query(buscarNombre,parametros);
+      nombre = respuestaNombre.rows[0].Nombre
+    } catch(err){
+        console.log("Error cambiar nombre: "+err.message);
+    }
+
+    // Consulta foto perfil
+    var consultaFoto='SELECT "Foto_perfil" FROM "Usuarios" WHERE "Email"=$1'
+    const parametros2=[email];
+    var respuestaFotoPerfil;
+    try{
+      respuestaFotoPerfil = await conexion.query(consultaFoto,parametros2);
+    } catch(err){
+        console.log("Error consulta: "+err.message);
+    }
+    var fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil || 'perfil.png';
 
   // Buscar su nick
   var consultaNick='SELECT "Nick" from "Usuarios" WHERE "Email"=$1'
@@ -149,7 +373,7 @@ app.get('/comunidad', async (req,res) => {
   }else{
     nickExiste='';
   }
-  res.render('comunidad',{user, nombre, nickExiste})
+  res.render('comunidad',{user, nombre,fotoPerfil, nickExiste})
 })
 
 //Agregar nick a usuario

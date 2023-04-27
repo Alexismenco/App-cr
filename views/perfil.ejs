@@ -38,7 +38,6 @@
 img{
   display: block;
   margin: auto;
-  filter: invert(1);
   margin-top: 5px;
   border-radius: 50%;
 }
@@ -65,13 +64,13 @@ img{
   </div>
 
   <a href="/perfil">
-    <img class="" style="width: 150px; margin-top: 8px;" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" />
+    <img class="" style="width: 150px; margin-top: 8px;" src="<%- fotoPerfil %>" />
   </a>
 
   <div class=" text-center mt-5 ">
 
     <h3>
-        <b><a href="#" class="btn btn-dark btn-cursos2 mt-2 mb-2">Editar perfil</a></b>
+        <b><a href="/perfil/edit" class="btn btn-dark btn-cursos2 mt-2 mb-2">Editar perfil</a></b>
         <b><a href="#" class="btn btn-dark btn-cursos2 mt-2 mb-2">Membresia</a></b>
         <b><a href="#" class="btn btn-dark btn-cursos2 mt-2 mb-2">Detalles de la cuenta</a></b>
 

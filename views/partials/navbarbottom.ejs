@@ -32,7 +32,6 @@
     width: 25px;
     display: block;
     margin: auto;
-    filter: invert(1);
     margin-top: 5px;
   }
   .perfil{
@@ -90,7 +89,9 @@
   
         <li>
           <a href="/perfil">
-            <img class="perfil" id="perfil" style="width: 40px; margin-top: 6px;" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" />
+            <img class="perfil" id="perfil" style="width: 40px; margin-top: 6px;" src="./perfil/<%- fotoPerfil %>" />
+            <img class="perfil" id="perfil2" style="width: 40px; margin-top: 6px;" src="<%- fotoPerfil %>" />
+            <img />
           </a>
         </li>
   
@@ -103,13 +104,22 @@
     if(ruta=='/'){
       document.getElementById('inicio').style='filter: opacity(0.4) drop-shadow(0 0 0 rgb(0, 360, 360)); ';
       document.getElementById('inicioletras').style='color: rgb(0, 180, 360);';
+      document.getElementById('perfil2').style='display:none';
     }else if(ruta=='/calculadora'){
       document.getElementById('calculadora').style='filter: opacity(0.4) drop-shadow(0 0 0 rgb(0, 360, 360)); ';
       document.getElementById('calculadoraletras').style='color: rgb(0, 180, 360);';
+      document.getElementById('perfil2').style='display:none';
     }else if(ruta=='/comunidad'){
       document.getElementById('comunidad').style='filter: opacity(0.4) drop-shadow(0 0 0 rgb(0, 360, 360)); ';
       document.getElementById('comunidadletras').style='color: rgb(0, 180, 360);';
+      document.getElementById('perfil2').style='display:none';
     }else if(ruta=='/perfil' || ruta=='/perfil/'){
       document.getElementById('perfil').style='border: 2px solid rgb(360, 100, 17); width: 40px; margin-top: 6px;';
+      document.getElementById('perfil').style='display:none';
+
+    }else if(ruta=='/perfil/edit' || ruta=='/perfil/edit/'){
+      document.getElementById('perfil').style='border: 2px solid rgb(360, 100, 17); width: 40px; margin-top: 6px;';
+      document.getElementById('perfil').style='display:none';
+
     }
   </script>
