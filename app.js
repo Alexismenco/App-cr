@@ -190,19 +190,15 @@ app.post('/perfil/edit', async (req,res) => {
 
   if(req.body.nombre){
     // Cambiar nombre
-  
-    try{
-      var actualizaNombre='UPDATE "Usuarios" SET "Nombre"=$1 WHERE "Email"=$2'
-      var parametros=[req.body.nombre, email]
-      var respuestaNombre;
-    }catch(err){
-        console.log("Error cambiar nombre: "+err.message);
-    }
+    var actualizaNombre='UPDATE "Usuarios" SET "Nombre"=$1 WHERE "Email"=$2'
+    var parametros=[req.body.nombre, email]
+    var respuestaNombre;
     try{
       respuestaNombre = await conexion.query(actualizaNombre,parametros);
     } catch(err){
         console.log("Error cambiar nombre: "+err.message);
     }
+    console.log(respuestaNombre)
   }else if(req.body.email){
     // Cambiar email
     var actualizaEmail='UPDATE "Usuarios" SET "Email"=$1 WHERE "Email"=$2'
