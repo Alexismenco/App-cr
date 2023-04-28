@@ -1,8 +1,5 @@
-
 module.exports = function (io){
-    let users = {
-
-    };
+    let users = {};
 
     io.on('connection', socket => {
 
@@ -59,4 +56,3 @@ module.exports = function (io){
   });
 }
 
-  
