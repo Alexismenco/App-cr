@@ -56,7 +56,7 @@ app.get('/', async (req,res) => {
       respuestaNombre = await conexion.query(buscarNombre,parametros);
       nombre = respuestaNombre.rows[0].Nombre
     } catch(err){
-        console.log("Error cambiar nombre: "+err.message);
+        console.log("Error buscar nombre: "+err.message);
     }
     // Consulta foto perfil
     var consultaFoto='SELECT "Foto_perfil" FROM "Usuarios" WHERE "Email"=$1'
@@ -110,7 +110,7 @@ app.get('/perfil', async (req,res) => {
       respuestaNombre = await conexion.query(buscarNombre,parametros);
       nombre = respuestaNombre.rows[0].Nombre
     } catch(err){
-        console.log("Error cambiar nombre: "+err.message);
+        console.log("Error buscar nombre: "+err.message);
     }
     // Consulta foto perfil
     var consultaFoto='SELECT "Foto_perfil" FROM "Usuarios" WHERE "Email"=$1'
@@ -163,7 +163,7 @@ app.get('/perfil/edit', async (req,res) => {
       respuestaNombre = await conexion.query(buscarNombre,parametros);
       nombre = respuestaNombre.rows[0].Nombre
     } catch(err){
-        console.log("Error cambiar nombre: "+err.message);
+        console.log("Error buscar nombre: "+err.message);
     }
 
      // Consulta foto perfil
@@ -311,7 +311,7 @@ app.get('/calculadora', async (req,res) => {
       respuestaNombre = await conexion.query(buscarNombre,parametros);
       nombre = respuestaNombre.rows[0].Nombre
     } catch(err){
-        console.log("Error cambiar nombre: "+err.message);
+        console.log("Error buscar nombre: "+err.message);
     }
     // Consulta foto perfil
     var consultaFoto='SELECT "Foto_perfil" FROM "Usuarios" WHERE "Email"=$1'
@@ -364,9 +364,9 @@ app.get('/comunidad', async (req,res) => {
       respuestaNombre = await conexion.query(buscarNombre,parametros);
       nombre = respuestaNombre.rows[0].Nombre
     } catch(err){
-        console.log("Error cambiar nombre: "+err.message);
+        console.log("Error buscar nombre: "+err.message);
     }
-
+    console.log(nombre)
     // Consulta foto perfil
     var consultaFoto='SELECT "Foto_perfil" FROM "Usuarios" WHERE "Email"=$1'
     const parametros2=[email];
