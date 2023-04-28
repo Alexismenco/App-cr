@@ -67,7 +67,12 @@ app.get('/', async (req,res) => {
     } catch(err){
         console.log("Error consulta: "+err.message);
     }
-    var fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil || 'perfil.png';
+    var fotoPerfil;
+    if(respuestaFotoPerfil.rows[0].Foto_perfil==null){
+      fotoPerfil= 'perfil.png';
+    }else{
+    fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil;
+    }
 
 
     res.render('index',{user, nombre, fotoPerfil})
@@ -116,7 +121,12 @@ app.get('/perfil', async (req,res) => {
     } catch(err){
         console.log("Error consulta: "+err.message);
     }
-    var fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil || 'perfil.png';
+    var fotoPerfil;
+    if(respuestaFotoPerfil.rows[0].Foto_perfil==null){
+      fotoPerfil= 'perfil.png';
+    }else{
+    fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil;
+    }
 
   res.render('perfil',{user, nombre, fotoPerfil})
 })
@@ -165,7 +175,12 @@ app.get('/perfil/edit', async (req,res) => {
     } catch(err){
         console.log("Error consulta: "+err.message);
     }
-    var fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil || 'perfil.png';
+     var fotoPerfil;
+    if(respuestaFotoPerfil.rows[0].Foto_perfil==null){
+      fotoPerfil= 'perfil.png';
+    }else{
+    fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil;
+    }
 
   res.render('perfiledit',{user, nombre, email, fotoPerfil})
 })
@@ -307,7 +322,12 @@ app.get('/calculadora', async (req,res) => {
     } catch(err){
         console.log("Error consulta: "+err.message);
     }
-    var fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil || 'perfil.png';
+     var fotoPerfil;
+    if(respuestaFotoPerfil.rows[0].Foto_perfil==null){
+      fotoPerfil= 'perfil.png';
+    }else{
+    fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil;
+    }
 
   res.render('calculadora',{user, nombre, fotoPerfil})
 })
@@ -356,8 +376,12 @@ app.get('/comunidad', async (req,res) => {
     } catch(err){
         console.log("Error consulta: "+err.message);
     }
-    var fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil || 'perfil.png';
-
+    var fotoPerfil;
+    if(respuestaFotoPerfil.rows[0].Foto_perfil==null){
+      fotoPerfil= 'perfil.png';
+    }else{
+    fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil;
+    }
   // Buscar su nick
   var consultaNick='SELECT "Nick" from "Usuarios" WHERE "Email"=$1'
   var parametros=[email]
