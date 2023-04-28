@@ -165,6 +165,10 @@
   background-color: rgb(49, 189, 49);
 }
 
+.img-enviar{
+  filter: invert(1);
+}
+
 .tu{
 
   color: white;
@@ -173,9 +177,14 @@
   margin-left:5px;
 }
 
+.error{
+  color: red;
+}
+
 </style>
 
 <input id="nickExiste" class="text-white" value="<%- nickExiste %>" hidden/>
+<input id="fotoPerfil" class="text-white" value="<%- fotoPerfil %>" hidden/>
 
 <div class="card col-md-4 mt-5 m-auto bg-dark text-white" id="nickWrap"> 
   <div class="card-header">

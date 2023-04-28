@@ -70,13 +70,13 @@ app.get('/', async (req,res) => {
     var fotoPerfil;
     try{
       if(respuestaFotoPerfil.rows[0].Foto_perfil==null){
-        fotoPerfil= 'perfil.png';
+        fotoPerfil= 'perfil.webp';
       }else{
       fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil;
       }
     }catch(err){
       console.log("Error encontrar nombre: "+err.message);
-      fotoPerfil= 'perfil.png';
+      fotoPerfil= 'perfil.webp';
     }
 
 
@@ -129,13 +129,13 @@ app.get('/perfil', async (req,res) => {
     var fotoPerfil;
     try{
       if(respuestaFotoPerfil.rows[0].Foto_perfil==null){
-        fotoPerfil= 'perfil.png';
+        fotoPerfil= 'perfil.webp';
       }else{
       fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil;
       }
     }catch(err){
       console.log("Error encontrar nombre: "+err.message);
-      fotoPerfil= 'perfil.png';
+      fotoPerfil= 'perfil.webp';
     }
 
   res.render('perfil',{user, nombre, fotoPerfil})
@@ -188,13 +188,13 @@ app.get('/perfil/edit', async (req,res) => {
      var fotoPerfil;
    try{
       if(respuestaFotoPerfil.rows[0].Foto_perfil==null){
-        fotoPerfil= 'perfil.png';
+        fotoPerfil= 'perfil.webp';
       }else{
       fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil;
       }
     }catch(err){
       console.log("Error encontrar nombre: "+err.message);
-      fotoPerfil= 'perfil.png';
+      fotoPerfil= 'perfil.webp';
     }
 
   res.render('perfiledit',{user, nombre, email, fotoPerfil})
@@ -340,13 +340,13 @@ app.get('/calculadora', async (req,res) => {
      var fotoPerfil;
      try{
       if(respuestaFotoPerfil.rows[0].Foto_perfil==null){
-        fotoPerfil= 'perfil.png';
+        fotoPerfil= 'perfil.webp';
       }else{
       fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil;
       }
     }catch(err){
       console.log("Error encontrar nombre: "+err.message);
-      fotoPerfil= 'perfil.png';
+      fotoPerfil= 'perfil.webp';
     }
 
   res.render('calculadora',{user, nombre, fotoPerfil})
@@ -398,13 +398,13 @@ app.get('/comunidad', async (req,res) => {
     var fotoPerfil;
     try{
       if(respuestaFotoPerfil.rows[0].Foto_perfil==null){
-        fotoPerfil= 'perfil.png';
+        fotoPerfil= 'perfil.webp';
       }else{
       fotoPerfil= respuestaFotoPerfil.rows[0].Foto_perfil;
       }
     }catch(err){
       console.log("Error encontrar nombre: "+err.message);
-      fotoPerfil= 'perfil.png';
+      fotoPerfil= 'perfil.webp';
     }
   // Buscar su nick
   var consultaNick='SELECT "Nick" from "Usuarios" WHERE "Email"=$1'
@@ -417,11 +417,16 @@ app.get('/comunidad', async (req,res) => {
   }
 
   var nickExiste;
-  if(respuestaNick.rows[0].Nick!==null){
-    nickExiste = respuestaNick.rows[0].Nick;
-  }else{
+  try{
+    if(respuestaNick.rows[0].Nick!==null){
+      nickExiste = respuestaNick.rows[0].Nick;
+    }else{
+      nickExiste='';
+    }
+  }catch(err){
     nickExiste='';
   }
+ 
   res.render('comunidad',{user, nombre,fotoPerfil, nickExiste})
 })
 
